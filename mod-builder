@@ -12,13 +12,26 @@ extract_zip(){
   rm ./forge-*.zip
   fi
 }
-
-if [ -e ./forge-*.zip ];
+read -p "What minecraft version would you like to build the mod development environment with?(only supports versions later than 1.6.4) " mc_version
+read -p "What forge version would you like to build the mod development environment with? " forge_version
+MDKORSRC="mdk"
+if [ $mc_version == "1.7.10" ] || [ $mc_version == "1.7.2" ];
+then
+MDKORSRC="src"
+fi
+if [ -e ./forge-$mc_version-$forge_version-mdk.zip ] || [ -e ./forge-$mc_version-$forge_version-$mc_version-src.zip ];
 then
 echo -e '\e[31mzip file detected, skipping download\e[0m'
 extract_zip
 else
-wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.1-39.1.2/forge-1.18.1-39.1.2-mdk.zip
+if [ $MDKORSRC == "src" ];
+then
+wget https://maven.minecraftforge.net/net/minecraftforge/forge/$mc_version-$forge_version-$mc_version/forge-$mc_version-$forge_version-$mc_version-$MDKORSRC.zip
+fi
+if [ $MDKORSRC == "mdk" ];
+then
+wget https://maven.minecraftforge.net/net/minecraftforge/forge/$mc_version-$forge_version/forge-$mc_version-$forge_version-$MDKORSRC.zip
+fi
 extract_zip
 fi
 if [ $file_extracted == 0 ];
@@ -252,9 +265,9 @@ echo -e '\e[35mbuild.gradle successfully edited according to your preferences\e[
 echo
 echo -e '\e[33mWhich IDE are you going to use to develop your mod? \n\n1.Intellij\n2.Eclipse\e[0m'
 read -p "type in the number that lists your desired IDE" ide
-while [ $ide -gt 2 ];
+while [ $ide -gt 2 ] || [ $ide -lt 1 ];
 do
-read -p "type in your desired ide" ide
+read -p "IDE choice not valid. Please pick a valid ide listed above." ide
 done
 if [ $ide == "1" ];
 then
@@ -263,7 +276,8 @@ elif [ $ide == "2" ];
 then
 ./gradlew genEclipseRuns
 else
-echo "If this message is displaying, please consult the https://github.com/a-weeb-programmer/mod-builder issue page as this is a bug"
+echo "If this message is displaying, please open an issue at https://github.com/a-weeb-programmer/mod-builder/issues page as this is a bug"
+exit
 fi
 echo
 echo -e '\e[36mThe modding environment has successfully been set up. Thank you for using this program.\e[0m'
