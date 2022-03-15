@@ -1,7 +1,7 @@
 # Mod Builder
 1. [ Overview. ](#Overview)
 2. [ Installation. ](#Installation)
-3. [ Dendencies.   ](#Dependencies)
+3. [ Dependencies. ](#Dependencies)
 
 <a name="Overview"></a>
 ## 1. Overview
