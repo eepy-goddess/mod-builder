@@ -23,7 +23,7 @@ Installation is quite simple.
   
 > ### Instructions for other Linux users:
 > 1. Clone this repository by typing ```git clone https://github.com/a-weeb-programmer/mod-builder.git```
-> 2. Type ```sudo make install`` in the terminal to install it
+> 2. Type ```sudo make install``` in the terminal to install it
 > 3. Enjoy
 
 <a name="Dependencies"></a>
