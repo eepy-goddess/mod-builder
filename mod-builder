@@ -10,7 +10,12 @@ extract_zip(){
   else
   echo "you meet the requirements"
   unzip ./forge-*.zip
+  if [ ! -e "./build.gradle" ];
+  then
+  file_extracted=1
+  else
   file_extracted=0
+  fi
   rm ./forge-*.zip
   fi
 }
@@ -39,6 +44,11 @@ then
 wget https://maven.minecraftforge.net/net/minecraftforge/forge/$mc_version-$forge_version/forge-$mc_version-$forge_version-$MDKORSRC.zip
 fi
 extract_zip
+fi
+if [ $file_extracted == 1 ];
+then
+echo "ERROR: File download link doesn't exist. Please be sure you have the correct minecraft version and forge version"
+exit
 fi
 if [ $file_extracted == 0 ];
 then
